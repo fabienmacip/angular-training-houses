@@ -1,3 +1,8 @@
+# db.json
+
+npm install -g json-server
+json-server --watch db.json
+
 # 02Houses
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.1.0.

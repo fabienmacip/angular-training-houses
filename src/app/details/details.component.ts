@@ -1,5 +1,4 @@
 import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { HousingService } from '../housing.service';
 import { HousingLocation } from '../housinglocation';
@@ -13,6 +12,8 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
   styleUrl: './details.component.css',
 })
 export class DetailsComponent {
+  //readonly baseUrl = 'https://angular.dev/assets/images/tutorials/common';
+
   route: ActivatedRoute = inject(ActivatedRoute);
   housingService = inject(HousingService);
   housingLocation: HousingLocation | undefined;
@@ -23,10 +24,19 @@ export class DetailsComponent {
     email: new FormControl(''),
   });
 
-  constructor() {
+  /*   constructor() {
     const housingLocationId = Number(this.route.snapshot.params['id']);
     this.housingLocation =
       this.housingService.getHousingLocationById(housingLocationId);
+  } */
+
+  constructor() {
+    const housingLocationId = parseInt(this.route.snapshot.params['id'], 10);
+    this.housingService
+      .getHousingLocationById(housingLocationId)
+      .then((housingLocation) => {
+        this.housingLocation = housingLocation;
+      });
   }
 
   submitApplication() {
